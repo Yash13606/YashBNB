@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= listing.title %>
+    </title>
+</head>
+
+<body>
+    <h3>
+        <%= listing.title %>
+    </h3>
+    <p>
+        <%= listing.description %>
+    </p>
+    <p>Price: ₹<%= listing.price.toLocaleString('en-IN') %>
+    </p>
+    <p>Location: <%= listing.location %>
+    </p>
+    <p>Country: <%= listing.country %>
+    </p>
+    <% if (listing.image && listing.image.url) { %>
+        <img src="<%= listing.image.url %>" alt="<%= listing.title %>" style="max-width: 500px;">
+        <% } %>
+            <br><br>
+            <a href="/listings">Back to All Listings</a>
+
+            <ul>
+                <br>
+                <a href="/listings/<%= listing._id %>/edit">Edit Listing</a>
+                <br><br>
+                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
+                    <button type="submit">Delete Listing</button>
+                </form>
+            </ul>
+</body>
+
+</html>
