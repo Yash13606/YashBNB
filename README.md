@@ -41,19 +41,23 @@ cd YashBNB
 npm install
 ```
 
-3. Make sure MongoDB is running on your system
+3. Set up environment variables:
+   - Copy `.env.example` to `.env`
+   - Update the values as needed (MongoDB URL, port, etc.)
 
-4. Initialize the database with sample data:
+4. Make sure MongoDB is running on your system
+
+5. Initialize the database with sample data:
 ```bash
 node init/index.js
 ```
 
-5. Start the server:
+6. Start the development server:
 ```bash
-nodemon app.js
+npm run dev
 ```
 
-6. Visit `http://localhost:8080` in your browser
+7. Visit `http://localhost:8080` in your browser
 
 ## Project Structure
 
@@ -90,7 +94,13 @@ AirBnb/
 - express
 - mongoose
 - ejs
+- ejs-mate
 - method-override
+- dotenv
+
+## Dev Dependencies
+
+- nodemon
 
 ## Author
 

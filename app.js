@@ -1,19 +1,32 @@
+// Load environment variables
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const Listing = require("./Models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
-const ejsMate = require("ejs-mate");    
+const ejsMate = require("ejs-mate");
+
+// Middleware
 app.use(methodOverride("_method"));
-main().then(() => {
-    console.log("Connected to MongoDB");
-}).catch((err) => {
-    console.log(err);
-});
+
+// Database connection
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost:27017/airbnb";
+
+main()
+    .then(() => {
+        console.log("✅ Connected to MongoDB");
+    })
+    .catch((err) => {
+        console.log("❌ MongoDB connection error:", err);
+    });
 
 async function main() {
-    await mongoose.connect("mongodb://localhost:27017/airbnb");
+    await mongoose.connect(MONGODB_URL);
 }
 
 app.set("view engine", "ejs");
@@ -71,7 +84,7 @@ app.get("/listings/:id/edit", async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/edit.ejs", { listing });
-}); 
+});
 
 //Update Route
 app.put("/listings/:id", async (req, res) => {
@@ -127,6 +140,8 @@ app.get("/allListings", async (req, res) => {
     }
 });
 
-app.listen(8080, () => {
-    console.log("Server started on port 8080");
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+    console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
